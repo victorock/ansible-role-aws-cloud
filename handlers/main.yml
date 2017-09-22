@@ -1,0 +1,13 @@
+---
+- name: Refresh inventory
+  meta: refresh_inventory
+
+- name: Wait for SSH
+  wait_for:
+    host: "{{ item.public_ip }}"
+    port: 22
+    delay: 30
+    timeout: 320
+    search_regex: OpenSSH
+  with_items: "{{ return_ec2.instances }}"
+  when: return_ec2.instances > 0

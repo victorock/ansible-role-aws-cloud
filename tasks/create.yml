@@ -1,0 +1,32 @@
+- name: Create security group
+  local_action:
+    module: ec2_group
+    name: "{{ ec2_application_identifier }}"
+    description: "{{ ec2_security_ports }} ports open"
+    region: "{{ ec2_region }}"
+    vpc_id: "{{ ec2_vpc_id }}"
+    rules:
+      - proto: tcp
+        ports: "{{ ec2_security_ports }}"
+        cidr_ip: 0.0.0.0/0
+    rules_egress:
+      - proto: all
+        cidr_ip: 0.0.0.0/0
+    state: present
+  register: return_ec2_group
+
+- debug: var=return_ec2_group
+  when: ec2_debug
+
+- name: Create key
+  local_action:
+    module: ec2_key
+    name: "{{ ec2_key_name }}"
+    region: "{{ ec2_region }}"
+    key_material: "{{ item }}"
+    state: present
+  with_file: "{{ ansible_private_key_file | dirname }}/{{ec2_key_name}}.pub"
+  register: return_ec2_key
+
+- debug: var=return_ec2_key
+  when: ec2_debug

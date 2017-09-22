@@ -1,0 +1,15 @@
+---
+- name: Delete security group
+  local_action:
+    module: ec2_group
+    name: "{{ ec2_application_identifier }}"
+    region: "{{ ec2_region }}"
+    vpc_id: "{{ ec2_vpc_id }}"
+    state: absent
+
+- name: Delete key
+  local_action:
+    module: ec2_key
+    name: "{{ ec2_key_name }}"
+    region: "{{ ec2_region }}"
+    state: absent

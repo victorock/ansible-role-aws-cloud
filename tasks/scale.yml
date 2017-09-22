@@ -1,0 +1,41 @@
+---
+- name: "Scale to {{ ec2_exact_count }} instances"
+  local_action:
+    module: ec2
+    region: "{{ ec2_region }}"
+    key_name: "{{ ec2_key_name }}"
+    instance_type: "{{ ec2_instance.size | default(ec2_instance_types[ec2_instance.os].size) }}"
+    image: "{{ ec2_instance_types[ec2_instance.os].ami_id }}"
+    volumes:
+      - device_name: /dev/sda1
+        volume_type: gp2
+        volume_size: "{{ ec2_instance_types[ec2_instance.os].disk_space }}"
+        delete_on_termination: true
+    exact_count: "{{ ec2_exact_count }}"
+    instance_tags:
+      Name: "{{ ec2_application_identifier }}"
+    count_tag:
+      Name: "{{ ec2_application_identifier }}"
+    wait: "{{ ec2_wait }}"
+    vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+    group: "{{ ec2_application_identifier }}"
+    assign_public_ip: "{{ ec2_assign_public_ip }}"
+  register: return_ec2
+  notify:
+    - Wait for SSH
+
+- debug: var=return_ec2
+  when: ec2_debug
+
+- name: Add hosts to in-memory Inventory Groups
+  local_action:
+    module: add_host
+    name: "{{ item.public_ip }}"
+    ansible_host: "{{ item.public_ip }}"
+    ansible_user: "{{ ec2_login_names[ec2_instance.os] }}"
+    ansible_port: "{{ ec2_ssh_port }}"
+    groups:
+      - "ec2"
+      - "tag_Name_{{ ec2_application_identifier }}"
+  with_items: "{{ return_ec2.tagged_instances }}"
+  when: return_ec2.tagged_instances > 0

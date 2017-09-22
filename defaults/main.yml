@@ -1,0 +1,18 @@
+ec2_debug: false
+ec2_region: eu-central-1
+ec2_vpc_id: "{{ ec2_regions[ec2_region].vpc }}"
+ec2_vpc_subnet_id: "{{ ec2_regions[ec2_region].subnet_id }}"
+ec2_key_name: "{{ ec2_regions[ec2_region].key_name }}"
+ec2_exact_count: 1
+ec2_wait: yes
+ec2_assign_public_ip: yes
+ec2_ssh_port: 22
+ec2_security_ports:
+  - "{{ ec2_ssh_port }}"
+  - 80
+  - 443
+ec2_instance_tags:
+  name: default
+  class: frontend
+  version: static
+  environment: staging
