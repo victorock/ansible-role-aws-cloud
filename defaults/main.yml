@@ -11,8 +11,14 @@ ec2_security_ports:
   - "{{ ec2_ssh_port }}"
   - 80
   - 443
+ec2_instance:
+  os: centos7
 ec2_instance_tags:
-  name: default
-  class: frontend
-  version: static
-  environment: staging
+  Name: default
+  Class: frontend
+  Version: static
+  Environment: staging
+
+## Application Identifier
+## applies to instance tags and security groups
+ec2_application_identifier: "{{ ec2_instance_tags.Name }}_{{ ec2_instance_tags.Version }}_{{ ec2_instance_tags.Class }}_{{ ec2_instance_tags.Environment }}"

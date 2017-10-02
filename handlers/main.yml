@@ -10,4 +10,6 @@
     timeout: 320
     search_regex: OpenSSH
   with_items: "{{ return_ec2.instances }}"
-  when: return_ec2.instances > 0
+  when:
+    - return_ec2.instances > 0
+    - ec2_exact_count|int > 0
