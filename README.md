@@ -1,2 +1,2 @@
-# ansible-role-aws-ec2
-ansible-role-aws-ec2
+# ansible-role-aws-cloud
+ansible-role-aws-cloud
