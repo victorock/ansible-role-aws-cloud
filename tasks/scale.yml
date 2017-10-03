@@ -30,8 +30,9 @@
     module: add_host
     name: "{{ item.public_ip }}"
     ansible_host: "{{ item.public_ip }}"
-    ansible_user: "{{ ec2_login_names[ec2_os] }}"
+    ansible_user: "{{ ec2_login_username }}"
     ansible_port: "{{ ec2_ssh_port }}"
+    ansible_ssh_private_key_file: "{{ ec2_key_dir }}/{{ ec2_key_name }}"
     groups:
       - "ec2"
       - "tag_Name_{{ ec2_instance_tags.Name }}"

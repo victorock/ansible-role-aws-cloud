@@ -9,6 +9,8 @@ ec2_exact_count: 1
 ec2_assign_public_ip: yes
 ec2_wait: yes
 ec2_key_dir: files
+ec2_login_username: "{{ ec2_instances_store[ec2_os].login.username }}"
+ec2_ssh_port: "{{ ec2_instances_store[ec2_os].ssh_port }}"
 
 ## Instance related configuration
 ec2_os: centos7
