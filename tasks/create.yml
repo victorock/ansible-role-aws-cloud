@@ -14,6 +14,9 @@
         cidr_ip: 0.0.0.0/0
     state: present
   register: return_ec2_group
+  tags:
+    - create
+    - ec2_group
 
 - debug: var=return_ec2_group
   when: ec2_debug
@@ -23,12 +26,18 @@
     path: "{{ ec2_key_dir }}"
     state: directory
     mode: 0755
+  tags:
+    - create
+    - ec2_key_dir
 
 - name: Ensure Key file "{{ ec2_key_name }}" exists
   command: ssh-keygen -t rsa -b 2048 -C "{{ ec2_key_name }}" -N "" -f "{{ ec2_key_name }}"
   args:
     chdir: "{{ ec2_key_dir }}"
     creates: "{{ ec2_key_name }}"
+  tags:
+    - create
+    - ec2_key_gen
 
 - name: Register Key in AWS
   local_action:
@@ -39,6 +48,9 @@
     state: present
   with_file: "{{ ec2_key_dir }}/{{ec2_key_name}}.pub"
   register: return_ec2_key
+  tags:
+    - create
+    - ec2_key
 
 - debug: var=return_ec2_key
   when: ec2_debug

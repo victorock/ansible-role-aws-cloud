@@ -21,6 +21,9 @@
   register: return_ec2
   notify:
     - Wait for SSH
+  tags:
+    - scale
+    - ec2
 
 - debug: var=return_ec2
   when: ec2_debug
@@ -33,11 +36,10 @@
     ansible_user: "{{ ec2_login_username }}"
     ansible_port: "{{ ec2_ssh_port }}"
     ansible_ssh_private_key_file: "{{ ec2_key_dir }}/{{ ec2_key_name }}"
-    groups:
-      - "ec2"
-      - "tag_Name_{{ ec2_instance_tags.Name }}"
-      - "tag_Class_{{ ec2_instance_tags.Class }}"
-      - "tag_Version_{{ ec2_instance_tags.Version }}"
-      - "tag_Environment_{{ ec2_instance_tags.Environment }}"
+    groups: ec2
+    tags: "{{ ec2_instance_tags }}"
   with_items: "{{ return_ec2.tagged_instances }}"
   when: return_ec2.tagged_instances > 0
+  tags:
+    - scale
+    - add_host

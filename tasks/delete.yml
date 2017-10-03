@@ -6,6 +6,9 @@
     region: "{{ ec2_region }}"
     vpc_id: "{{ ec2_vpc_id }}"
     state: absent
+  tags:
+    - delete
+    - ec2_group
 
 - name: Delete key
   local_action:
@@ -13,3 +16,6 @@
     name: "{{ ec2_key_name }}"
     region: "{{ ec2_region }}"
     state: absent
+  tags:
+    - delete
+    - ec2_key
