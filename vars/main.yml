@@ -4,7 +4,6 @@ ec2_regions:
   eu-central-1:
     vpc: vpc-113d1379
     subnet_id: subnet-036c9f68
-    key_name: "key1"
     amis:
       fedora26: ami-5364c43c
       atomic26: ami-c6d266a9
@@ -16,7 +15,6 @@ ec2_regions:
   eu-west-1:
     vpc: vpc-b680f5d1
     subnet_id: subnet-dd51fe86
-    key_name: "key1"
     amis:
       fedora26: ami-aac928d3
       atomic26: ami-4254903b
@@ -28,7 +26,6 @@ ec2_regions:
   eu-west-2:
     vpc: vpc-fb285892
     subnet_id: subnet-6b9cff10
-    key_name: "key1"
     amis:
       fedora26: Unavailable
       atomic26: Unavailable
@@ -40,7 +37,6 @@ ec2_regions:
   us-east-1:
     vpc: vpc-06c9a463
     subnet_id: subnet-a2169ed5
-    key_name: "key1"
     amis:
       fedora26: ami-bb6065ad
       atomic26: ami-dd9b8aa6
@@ -52,7 +48,6 @@ ec2_regions:
   us-west-1:
     vpc: vpc-ce1f9aab
     subnet_id: subnet-25b9157c
-    key_name: "key1"
     amis:
       fedora26: ami-2c1c0f55
       atomic26: ami-b11febc9
@@ -61,52 +56,89 @@ ec2_regions:
       ubuntu14: ami-6ebcec0e
       ubuntu16: ami-b05203d0
 
-# Instance types used for lab configurations
-ec2_instance_types:
+## Instances Types
+ec2_instances_store:
   fedora26:
+    login:
+      key: fedora
+      username: fedora
     ami_id: "{{ ec2_regions[ec2_region].amis.fedora26 }}"
-    size: t2.micro
-    os_type: linux
-    disk_space: 10
+    type: t2.micro
+    boot_disk_volume_size: 10
+    ssh_port: 22
+    tags:
+      Name: fedora
+      Class: x86_64
+      Version: 26
+      Environment: staging
 
   atomic26:
+    login:
+      key: fedora
+      username: fedora
     ami_id: "{{ ec2_regions[ec2_region].amis.atomic26 }}"
-    size: t2.micro
-    os_type: linux
-    disk_space: 10
+    type: t2.micro
+    boot_disk_volume_size: 10
+    ssh_port: 22
+    tags:
+      Name: atomic
+      Class: x86_64
+      Version: 26
+      Environment: staging
 
   centos7:
+    login:
+      key: centos
+      username: centos
     ami_id: "{{ ec2_regions[ec2_region].amis.centos7 }}"
-    size: t2.micro
-    os_type: linux
-    disk_space: 10
+    type: t2.micro
+    boot_disk_volume_size: 10
+    ssh_port: 22
+    tags:
+      Name: centos
+      Class: x86_64
+      Version: 7
+      Environment: staging
 
   # Look for owner 309956199498 to find official Red Hat AMIs
   rhel7:
+    login:
+      key: rhel
+      username: ec2-user
     ami_id: "{{ ec2_regions[ec2_region].amis.rhel7 }}"
-    size: t2.micro
-    os_type: linux
-    disk_space: 10
+    type: t2.micro
+    boot_disk_volume_size: 10
+    ssh_port: 22
+    tags:
+      Name: rhel
+      Class: x86_64
+      Version: 7
+      Environment: staging
 
-  # Look at https://cloud-images.ubuntu.com/locator/ec2/ for Ubuntu AMIs
   ubuntu14:
+    login:
+      key: ubuntu
+      username: ubuntu
     ami_id: "{{ ec2_regions[ec2_region].amis.ubuntu14 }}"
-    size: t2.micro
-    os_type: linux
-    disk_space: 10
+    type: t2.micro
+    boot_disk_volume_size: 10
+    ssh_port: 22
+    tags:
+      Name: ubuntu
+      Class: x86_64
+      Version: 14
+      Environment: staging
 
   ubuntu16:
+    login:
+      key: ubuntu
+      username: ubuntu
     ami_id: "{{ ec2_regions[ec2_region].amis.ubuntu16 }}"
-    size: t2.micro
-    os_type: linux
-    disk_space: 10
-
-# Login names used for SSH connections.
-# These are baked in to the AMIs.
-ec2_login_names:
-  fedora26: fedora
-  atomic26: fedora
-  rhel7: ec2-user
-  centos7: centos
-  ubuntu14: ubuntu
-  ubuntu16: ubuntu
+    type: t2.micro
+    boot_disk_volume_size: 10
+    ssh_port: 22
+    tags:
+      Name: ubuntu
+      Class: x86_64
+      Version: 16
+      Environment: staging

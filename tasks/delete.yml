@@ -2,7 +2,7 @@
 - name: Delete security group
   local_action:
     module: ec2_group
-    name: "{{ ec2_application_identifier }}"
+    name: "{{ ec2_security_group }}"
     region: "{{ ec2_region }}"
     vpc_id: "{{ ec2_vpc_id }}"
     state: absent

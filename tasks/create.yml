@@ -1,7 +1,7 @@
 - name: Create security group
   local_action:
     module: ec2_group
-    name: "{{ ec2_application_identifier }}"
+    name: "{{ ec2_security_group }}"
     description: "{{ ec2_security_ports }} ports open"
     region: "{{ ec2_region }}"
     vpc_id: "{{ ec2_vpc_id }}"
@@ -18,14 +18,25 @@
 - debug: var=return_ec2_group
   when: ec2_debug
 
-- name: Create key
+# create Keychain Directory
+- name: Ensure keychain directory exists
+  file:
+    path: keychain
+    state: directory
+    mode: 0755
+
+- name: Ensure Key "{{ ec2_key_name }}" exists
+  command: ssh-keygen -t rsa -b 2048 -C "{{ ec2_key_name }}" -N "" -f "{{ ec2_keychain_dir }}/{{ ec2_key_name }}"
+    creates: "{{ ec2_keychain_dir }}/{{ ec2_key_name }}"
+
+- name: Register Key in AWS
   local_action:
     module: ec2_key
     name: "{{ ec2_key_name }}"
     region: "{{ ec2_region }}"
     key_material: "{{ item }}"
     state: present
-  with_file: "{{ ansible_private_key_file | dirname }}/{{ec2_key_name}}.pub"
+  with_file: "{{ ec2_keychain_dir }}/{{ec2_key_name}}.pub"
   register: return_ec2_key
 
 - debug: var=return_ec2_key
