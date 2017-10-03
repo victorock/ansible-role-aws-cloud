@@ -1,0 +1,10 @@
+---
+- hosts: localhost
+  become: no
+  gather_facts: no
+
+  vars:
+    ec2_os: centos7
+
+  roles:
+    - ansible-role-aws-cloud

@@ -27,7 +27,7 @@
 
 - name: Ensure Key "{{ ec2_key_name }}" exists
   command: ssh-keygen -t rsa -b 2048 -C "{{ ec2_key_name }}" -N "" -f "{{ ec2_keychain_dir }}/{{ ec2_key_name }}"
-    creates: "{{ ec2_keychain_dir }}/{{ ec2_key_name }}"
+  creates: "{{ ec2_keychain_dir }}/{{ ec2_key_name }}"
 
 - name: Register Key in AWS
   local_action:

@@ -1,14 +1,14 @@
 ---
 ## Defaults
 ec2_debug: false
-ec2_region: "{{ eu-central-1 }}"
+ec2_region: eu-central-1
 ec2_vpc_id: "{{ ec2_regions[ec2_region].vpc }}"
 ec2_vpc_subnet_id: "{{ ec2_regions[ec2_region].subnet_id }}"
 ec2_security_group: "{{ ec2_vpc_subnet_id }}"
 ec2_exact_count: 1
 ec2_assign_public_ip: yes
 ec2_wait: yes
-ec2_keychain_dir: "files"
+ec2_keychain_dir: files
 
 ## Instance related configuration
 ec2_os: centos7
