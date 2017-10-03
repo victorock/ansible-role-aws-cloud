@@ -25,8 +25,10 @@
     mode: 0755
 
 - name: Ensure Key file "{{ ec2_key_name }}" exists
-  command: ssh-keygen -t rsa -b 2048 -C "{{ ec2_key_name }}" -N "" -f "{{ ec2_key_dir }}/{{ ec2_key_name }}"
-  creates: "{{ ec2_key_dir }}/{{ ec2_key_name }}"
+  command: ssh-keygen -t rsa -b 2048 -C "{{ ec2_key_name }}" -N "" -f "{{ ec2_key_name }}"
+  args:
+    chdir: "{{ ec2_key_dir }}"
+    creates: "{{ ec2_key_name }}"
 
 - name: Register Key in AWS
   local_action:
