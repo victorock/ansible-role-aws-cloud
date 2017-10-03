@@ -1,7 +1,7 @@
-- import_tasks: create.yml
+- import: create.yml
   when: ec2_exact_count|int > 0
 
-- import_tasks: scale.yml
+- import: scale.yml
 
-- import_tasks: delete.yml
+- import: delete.yml
   when: ec2_exact_count|int < 0
