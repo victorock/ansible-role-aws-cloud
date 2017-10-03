@@ -12,9 +12,9 @@ ec2_key_dir: files
 
 ## Instance related configuration
 ec2_os: centos7
-ec2_image: "{{ ec2_instances_store[ec2_instance.os].ami_id }}"
-ec2_instance_type: "{{ ec2_instances_store[ec2_instance.os].type }}"
-ec2_key_name: "{{ ec2_instances_store[ec2_instance.os].login.key }}"
-ec2_boot_disk_volume_size: "{{ ec2_instances_store[ec2_instance.os].boot_disk_volume_size }}"
-ec2_instance_tags: "{{ ec2_instances_store[ec2_instance.os].tags }}"
-ec2_security_ports: "{{ ec2_instances_store[ec2_instance.os].ssh_port }}"
+ec2_image: "{{ ec2_instances_store[ec2_os].ami_id }}"
+ec2_instance_type: "{{ ec2_instances_store[ec2_os].type }}"
+ec2_key_name: "{{ ec2_instances_store[ec2_os].login.key }}"
+ec2_boot_disk_volume_size: "{{ ec2_instances_store[ec2_os].boot_disk_volume_size }}"
+ec2_instance_tags: "{{ ec2_instances_store[ec2_os].tags }}"
+ec2_security_ports: "{{ ec2_instances_store[ec2_os].ssh_port }}"
