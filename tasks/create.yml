@@ -18,16 +18,15 @@
 - debug: var=return_ec2_group
   when: ec2_debug
 
-# create Keychain Directory
-- name: Ensure keychain directory exists
+- name: Ensure Keys directory "{{ ec2_key_dir }}" exists
   file:
-    path: keychain
+    path: "{{ ec2_key_dir }}"
     state: directory
     mode: 0755
 
-- name: Ensure Key "{{ ec2_key_name }}" exists
-  command: ssh-keygen -t rsa -b 2048 -C "{{ ec2_key_name }}" -N "" -f "{{ ec2_keychain_dir }}/{{ ec2_key_name }}"
-  creates: "{{ ec2_keychain_dir }}/{{ ec2_key_name }}"
+- name: Ensure Key file "{{ ec2_key_name }}" exists
+  command: ssh-keygen -t rsa -b 2048 -C "{{ ec2_key_name }}" -N "" -f "{{ ec2_key_dir }}/{{ ec2_key_name }}"
+  creates: "{{ ec2_key_dir }}/{{ ec2_key_name }}"
 
 - name: Register Key in AWS
   local_action:
@@ -36,7 +35,7 @@
     region: "{{ ec2_region }}"
     key_material: "{{ item }}"
     state: present
-  with_file: "{{ ec2_keychain_dir }}/{{ec2_key_name}}.pub"
+  with_file: "{{ ec2_key_dir }}/{{ec2_key_name}}.pub"
   register: return_ec2_key
 
 - debug: var=return_ec2_key
