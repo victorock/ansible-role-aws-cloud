@@ -1,10 +1,36 @@
 ---
+## 1st Run
 - hosts: localhost
   become: no
   gather_facts: no
 
   vars:
-    ec2_os: centos7
+    test: yes
+    ec2cloud_exact_count: 1
+
+  roles:
+    - ansible-role-aws-cloud
+
+## 2nd Run for idempotent
+- hosts: localhost
+  become: no
+  gather_facts: no
+
+  vars:
+    test: yes
+    ec2cloud_exact_count: 1
+
+  roles:
+    - ansible-role-aws-cloud
+
+## 3rd Run for cleanup
+- hosts: localhost
+  become: no
+  gather_facts: no
+
+  vars:
+    test: yes
+    ec2cloud_exact_count: 0
 
   roles:
     - ansible-role-aws-cloud

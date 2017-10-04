@@ -64,7 +64,9 @@ ec2_instances_store:
       username: fedora
     ami_id: "{{ ec2_regions[ec2_region].amis.fedora26 }}"
     type: t2.micro
-    boot_disk_volume_size: 10
+    boot_disk:
+      volume_size: 10
+      delete_on_termination: yes
     ssh_port: 22
     tags:
       Name: fedora
@@ -78,7 +80,9 @@ ec2_instances_store:
       username: fedora
     ami_id: "{{ ec2_regions[ec2_region].amis.atomic26 }}"
     type: t2.micro
-    boot_disk_volume_size: 10
+    boot_disk:
+      volume_size: 10
+      delete_on_termination: yes
     ssh_port: 22
     tags:
       Name: atomic
@@ -92,7 +96,9 @@ ec2_instances_store:
       username: centos
     ami_id: "{{ ec2_regions[ec2_region].amis.centos7 }}"
     type: t2.micro
-    boot_disk_volume_size: 10
+    boot_disk:
+      volume_size: 10
+      delete_on_termination: yes
     ssh_port: 22
     tags:
       Name: centos
@@ -107,7 +113,9 @@ ec2_instances_store:
       username: ec2-user
     ami_id: "{{ ec2_regions[ec2_region].amis.rhel7 }}"
     type: t2.micro
-    boot_disk_volume_size: 10
+    boot_disk:
+      volume_size: 10
+      delete_on_termination: yes
     ssh_port: 22
     tags:
       Name: rhel
@@ -121,7 +129,9 @@ ec2_instances_store:
       username: ubuntu
     ami_id: "{{ ec2_regions[ec2_region].amis.ubuntu14 }}"
     type: t2.micro
-    boot_disk_volume_size: 10
+    boot_disk:
+      volume_size: 10
+      delete_on_termination: yes
     ssh_port: 22
     tags:
       Name: ubuntu
@@ -135,7 +145,9 @@ ec2_instances_store:
       username: ubuntu
     ami_id: "{{ ec2_regions[ec2_region].amis.ubuntu16 }}"
     type: t2.micro
-    boot_disk_volume_size: 10
+    boot_disk:
+      volume_size: 10
+      delete_on_termination: yes
     ssh_port: 22
     tags:
       Name: ubuntu

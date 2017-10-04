@@ -1,15 +1,17 @@
 ---
 - name: Refresh inventory
   meta: refresh_inventory
+  when:
+    - test is not defined
 
 - name: Wait for SSH
   wait_for:
     host: "{{ item.public_ip }}"
-    port: 22
+    port: "{{ ec2cloud_ssh_port }}"
     delay: 30
     timeout: 320
     search_regex: OpenSSH
-  with_items: "{{ return_ec2.instances }}"
+  with_items: "{{ return_ec2cloud.instances }}"
   when:
-    - return_ec2.instances > 0
-    - ec2_exact_count|int > 0
+    - return_ec2cloud.instances > 0
+    - ec2cloud_exact_count|int > 0
