@@ -20,7 +20,6 @@
         delete_on_termination: "{{ ec2cloud_boot_disk_delete_on_termination }}"
   register: return_ec2cloud
   notify:
-    - Refresh inventory
     - Wait for ansible remote access
   tags:
     - scale
