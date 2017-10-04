@@ -28,3 +28,8 @@
 
 - debug: var=return_ec2
   when: ec2_debug
+
+- name: Refresh inventory
+  meta: refresh_inventory
+  when:
+    - test is not defined

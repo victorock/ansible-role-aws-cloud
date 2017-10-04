@@ -1,9 +1,4 @@
 ---
-- name: Refresh inventory
-  meta: refresh_inventory
-  when:
-    - test is not defined
-
 - name: Wait for ansible remote access
   wait_for:
     host: "{{ item.public_ip }}"
