@@ -4,13 +4,12 @@
   when:
     - test is not defined
 
-- name: Wait for SSH
+- name: Wait for ansible remote access
   wait_for:
     host: "{{ item.public_ip }}"
-    port: "{{ ec2cloud_ssh_port }}"
+    port: "{{ ec2cloud_ansible_port }}"
     delay: 30
     timeout: 320
-    search_regex: OpenSSH
   with_items: "{{ return_ec2cloud.instances }}"
   when:
     - return_ec2cloud.instances > 0

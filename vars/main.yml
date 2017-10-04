@@ -67,7 +67,7 @@ ec2_instances_store:
     boot_disk:
       volume_size: 10
       delete_on_termination: yes
-    ssh_port: 22
+    ansible_port: 22
     tags:
       Name: fedora
       Class: x86_64
@@ -83,7 +83,7 @@ ec2_instances_store:
     boot_disk:
       volume_size: 10
       delete_on_termination: yes
-    ssh_port: 22
+    ansible_port: 22
     tags:
       Name: atomic
       Class: x86_64
@@ -99,7 +99,7 @@ ec2_instances_store:
     boot_disk:
       volume_size: 10
       delete_on_termination: yes
-    ssh_port: 22
+    ansible_port: 22
     tags:
       Name: centos
       Class: x86_64
@@ -116,7 +116,7 @@ ec2_instances_store:
     boot_disk:
       volume_size: 10
       delete_on_termination: yes
-    ssh_port: 22
+    ansible_port: 22
     tags:
       Name: rhel
       Class: x86_64
@@ -132,7 +132,7 @@ ec2_instances_store:
     boot_disk:
       volume_size: 10
       delete_on_termination: yes
-    ssh_port: 22
+    ansible_port: 22
     tags:
       Name: ubuntu
       Class: x86_64
@@ -148,7 +148,7 @@ ec2_instances_store:
     boot_disk:
       volume_size: 10
       delete_on_termination: yes
-    ssh_port: 22
+    ansible_port: 22
     tags:
       Name: ubuntu
       Class: x86_64
