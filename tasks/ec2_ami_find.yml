@@ -1,0 +1,18 @@
+---
+- name: "Find the image [ {{ ec2_ami_find_name }} ] in region [ {{ ec2_ami_find_region }} ]"
+  local_action:
+    module: ec2_ami_find
+    region: "{{ ec2_ami_find_region }}"
+    virtualization_type: hvm
+    name: "{{ ec2_ami_find_name }}"
+    no_result_action: fail
+    sort: name
+    sort_order: descending
+  register: return_ec2_ami_find
+  tags:
+    - ec2_ami_find
+
+- debug: var=return_ec2_ami_find
+  when: ec2_ami_find_debug
+  tags:
+    - ec2_ami_find
