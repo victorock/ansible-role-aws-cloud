@@ -1,2 +1,9 @@
 - import_tasks: ec2_ami_find.yml
+  tags:
+    - ec2_cloud
+    - ec2_cloud_ami_find
+
 - import_tasks: ec2.yml
+  tags:
+    - ec2_cloud
+    - ec2_cloud_instance

@@ -8,28 +8,28 @@ ec2_vpc_id: "{{ ec2_regions[ec2_region].vpc }}"
 ec2_vpc_subnet_id: "{{ ec2_regions[ec2_region].subnet_id }}"
 
 # Security Configuration
-ec2_group_name: default
-ec2_key_name: default
+ec2_security_group_name: default
+ec2_security_key_name: default
 
 ## EC2 configuration
-ec2_instance_debug: "{{ ec2_debug }}"
-ec2_instances: 1
-ec2_instance_os: CentOS Linux 7 x86_64*
-ec2_instance_assign_public_ip: yes
-ec2_instance_wait: yes
-ec2_instance_region: "{{ ec2_region }}"
-ec2_instance_vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
-ec2_instance_group_name: "{{ ec2_group_name }}"
-ec2_instance_key_name: "{{ ec2_key_name }}"
-ec2_instance_exact_count: "{{ ec2_instances }}"
-ec2_instance_type: t2.micro
-ec2_instance_boot_disk_volume_size: 60
-ec2_instance_boot_disk_delete_on_termination: no
-ec2_instance_tags: "{'Name':'unknown', 'Class':'unknown', 'Version':'unknown', 'Environment':'provisioning'}"
-ec2_instance_count_tag: "{{ ec2_instance_tags }}"
-ec2_instance_management_port: "{{ ansible_port }}"
+ec2_cloud_instance_debug: "{{ ec2_debug }}"
+ec2_cloud_instances: 1
+ec2_cloud_instance_image: CentOS Linux 7 x86_64*
+ec2_cloud_instance_assign_public_ip: yes
+ec2_cloud_instance_wait: yes
+ec2_cloud_instance_region: "{{ ec2_region }}"
+ec2_cloud_instance_vpc_subnet_id: "{{ ec2_vpc_subnet_id }}"
+ec2_cloud_instance_group_name: "{{ ec2_security_group_name }}"
+ec2_cloud_instance_key_name: "{{ ec2_security_key_name }}"
+ec2_cloud_instance_exact_count: "{{ ec2_cloud_instances }}"
+ec2_cloud_instance_type: t2.micro
+ec2_cloud_instance_boot_disk_volume_size: 30
+ec2_cloud_instance_boot_disk_delete_on_termination: no
+ec2_cloud_instance_tags: "{'Name':'unknown', 'Class':'unknown', 'Version':'unknown', 'Environment':'provisioning'}"
+ec2_cloud_instance_count_tag: "{{ ec2_cloud_instance_tags }}"
+ec2_cloud_instance_management_port: "{{ ansible_port }}"
 
 ## EC2 AMI Find
-ec2_ami_find_debug: "{{ ec2_debug }}"
-ec2_ami_find_region: "{{ ec2_region }}"
-ec2_ami_find_name: "{{ ec2_instance_os }}"
+ec2_cloud_ami_find_debug: "{{ ec2_debug }}"
+ec2_cloud_ami_find_region: "{{ ec2_region }}"
+ec2_cloud_ami_find_name: "{{ ec2_cloud_instance_image }}"
