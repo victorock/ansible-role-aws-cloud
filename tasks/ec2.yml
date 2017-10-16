@@ -23,10 +23,11 @@
 - debug: var=return_ec2_cloud_instance
   when: ec2_cloud_instance_debug
 
-- name: "Add AWS hosts to groups"
+- name: "Add AWS hosts to inventory memory groups"
   add_host:
     name: "{{ item.public_ip }}"
     groups:
+      - "{{ ec2_cloud_instance_os_type }}"
       - "{{ ec2_cloud_instance_tags.Name }}"
       - "{{ ec2_cloud_instance_tags.Class }}"
       - "{{ ec2_cloud_instance_tags.Version }}"
