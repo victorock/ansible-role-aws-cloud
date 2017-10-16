@@ -1,4 +1,10 @@
 ---
+- fail:
+  msg: |
+    You need to specify ec2_cloud_instance_os_type.
+    This variable is used to group servers based on O.S.
+  when: ec2_cloud_instance_os_type is not defined
+
 - name: "Scale to [ {{ ec2_cloud_instance_exact_count }} ] instances"
   local_action:
     module: ec2
