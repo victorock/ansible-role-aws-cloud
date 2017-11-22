@@ -25,7 +25,11 @@ ec2_cloud_instance_exact_count: "{{ ec2_cloud_instances }}"
 ec2_cloud_instance_type: t2.micro
 ec2_cloud_instance_boot_disk_volume_size: 30
 ec2_cloud_instance_boot_disk_delete_on_termination: no
-ec2_cloud_instance_tags: "{'Name':'unknown', 'Class':'unknown', 'Version':'unknown', 'Environment':'provisioning'}"
+ec2_cloud_instance_tags:
+  Name: 'unknown'
+  Class: 'unknown'
+  Version: 'unknown'
+  Environment: 'staging'
 ec2_cloud_instance_count_tag: "{{ ec2_cloud_instance_tags }}"
 ec2_cloud_instance_management_port: "{{ ansible_port }}"
 
