@@ -55,4 +55,4 @@
   loop_control:
     loop_var: wait_for_instance
     label: "wait_for_instance {{ wait_for_instance.public_ip | default('undefined') }}"
-  when: add_host_instance.public_ip is defined
+  when: wait_for_instance.public_ip is defined
