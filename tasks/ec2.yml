@@ -5,7 +5,7 @@
     This variable is used to group servers based on O.S.
   when: ec2_cloud_instance_os_type is not defined
 
-- name: "Scale to [ {{ ec2_cloud_instance_exact_count }} ] instances"
+- name: "Ensure state of [ {{ ec2_cloud_instance_exact_count }} ] instances"
   local_action:
     module: ec2
     assign_public_ip: "{{ ec2_cloud_instance_assign_public_ip }}"
@@ -31,20 +31,28 @@
 
 - name: "Add AWS hosts to inventory memory groups"
   add_host:
-    name: "{{ item.public_ip }}"
+    name: "{{ add_host_instance.public_ip }}"
     groups:
-      - "{{ ec2_cloud_instance_os_type }}"
-      - "{{ ec2_cloud_instance_tags.Name }}"
-      - "{{ ec2_cloud_instance_tags.Class }}"
-      - "{{ ec2_cloud_instance_tags.Version }}"
-      - "{{ ec2_cloud_instance_tags.Environment }}"
-  with_items: "{{ return_ec2_cloud_instance.instances }}"
+      - "tag_OS_{{ ec2_cloud_instance_os_type }}"
+      - "tag_Name_{{ ec2_cloud_instance_tags.Name }}"
+      - "tag_Class_{{ ec2_cloud_instance_tags.Class }}"
+      - "tag_Version_{{ ec2_cloud_instance_tags.Version }}"
+      - "tag_Environment_{{ ec2_cloud_instance_tags.Environment }}"
+  with_items: "{{ return_ec2_cloud_instance.instances | default([]) }}"
+  loop_control:
+    loop_var: add_host_instance
+    label: "add_host_instance {{ add_host_instance.public_ip | default('undefined') }}"
+  when: add_host_instance.public_ip is defined
 
 - name: "Wait for SSH"
   wait_for:
-    host: "{{ item.public_ip }}"
+    host: "{{ wait_for_instance.public_ip }}"
     port: 22
     delay: 60
     timeout: 320
     state: started
-  with_items: "{{ return_ec2_cloud_instance.instances }}"
+  with_items: "{{ return_ec2_cloud_instance.instances | default([]) }}"
+  loop_control:
+    loop_var: wait_for_instance
+    label: "wait_for_instance {{ wait_for_instance.public_ip | default('undefined') }}"
+  when: add_host_instance.public_ip is defined
